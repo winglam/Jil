@@ -12,9 +12,11 @@ using System.Threading.Tasks;
 using System.Xml;
 using System.Collections;
 using Xunit;
+using Microsoft.Pex.Framework;
 
 namespace JilTests
 {
+    [PexClass]
     public class SerializeTests
     {
 #if !DEBUG
@@ -7614,22 +7616,16 @@ namespace JilTests
             }
         }
 
-        [Fact]
-        public void ISO8601TimeSpans()
+        [Theory]
+        [InlineData(0,0,0,0,0,0,2)]
+        public void ISO8601TimeSpans(int d, int h, int m, int s, int ms, int negate, int num)
         {
-            var rand = new Random();
             var timeSpans = new List<TimeSpan>();
 
-            for (var i = 0; i < 1000; i++)
+            for (var i = 0; i < num; i++)
             {
-                var d = rand.Next(10675199 - 1);
-                var h = rand.Next(24);
-                var m = rand.Next(60);
-                var s = rand.Next(60);
-                var ms = rand.Next(1000);
-
                 var ts = new TimeSpan(d, h, m, s, ms);
-                if (rand.Next(2) == 0)
+                if (negate == 0)
                 {
                     ts = ts.Negate();
                 }
@@ -7643,6 +7639,7 @@ namespace JilTests
 
             foreach (var ts in timeSpans)
             {
+                PexAssert.IsTrue(timeSpans.Count > 10);
                 string streamJson, stringJson;
                 using (var str = new StringWriter())
                 {
@@ -7654,7 +7651,7 @@ namespace JilTests
                     stringJson = JSON.Serialize(ts, Options.ISO8601);
                 }
 
-                Assert.True(streamJson == stringJson);
+                PexAssert.IsTrue(streamJson == stringJson);
 
                 var dotNetStr = XmlConvert.ToString(ts);
 
@@ -7677,6 +7674,70 @@ namespace JilTests
                 Assert.Equal(dotNetStr, stringJson);
             }
         }
+
+        //[Fact]
+        //public void ISO8601TimeSpans()
+        //{
+        //    var rand = new Random();
+        //    var timeSpans = new List<TimeSpan>();
+
+        //    for (var i = 0; i < 1000; i++)
+        //    {
+        //        var d = rand.Next(10675199 - 1);
+        //        var h = rand.Next(24);
+        //        var m = rand.Next(60);
+        //        var s = rand.Next(60);
+        //        var ms = rand.Next(1000);
+
+        //        var ts = new TimeSpan(d, h, m, s, ms);
+        //        if (rand.Next(2) == 0)
+        //        {
+        //            ts = ts.Negate();
+        //        }
+
+        //        timeSpans.Add(ts);
+        //    }
+
+        //    timeSpans.Add(TimeSpan.MaxValue);
+        //    timeSpans.Add(TimeSpan.MinValue);
+        //    timeSpans.Add(default(TimeSpan));
+
+        //    foreach (var ts in timeSpans)
+        //    {
+        //        string streamJson, stringJson;
+        //        using (var str = new StringWriter())
+        //        {
+        //            JSON.Serialize(ts, str, Options.ISO8601);
+        //            streamJson = str.ToString();
+        //        }
+
+        //        {
+        //            stringJson = JSON.Serialize(ts, Options.ISO8601);
+        //        }
+
+        //        Assert.True(streamJson == stringJson);
+
+        //        var dotNetStr = XmlConvert.ToString(ts);
+
+        //        streamJson = streamJson.Trim('"');
+        //        stringJson = stringJson.Trim('"');
+
+        //        if (streamJson.IndexOf('.') != -1)
+        //        {
+        //            var lastChar = streamJson[streamJson.Length - 1];
+        //            streamJson = streamJson.Substring(0, streamJson.Length - 1).TrimEnd('0') + lastChar;
+        //        }
+
+        //        if (stringJson.IndexOf('.') != -1)
+        //        {
+        //            var lastChar = stringJson[stringJson.Length - 1];
+        //            stringJson = stringJson.Substring(0, stringJson.Length - 1).TrimEnd('0') + lastChar;
+        //        }
+
+        //        Assert.Equal(dotNetStr, streamJson);
+        //        Assert.Equal(dotNetStr, stringJson);
+        //    }
+        //}
 
         [Fact]
         public void NullArrayElements()
@@ -8105,11 +8166,51 @@ namespace JilTests
             Assert.Equal(microsoftControl, microsoft);
         }
 
-        [Fact]
-        public void ISO8601WithOffset()
+        [Theory]
+        [InlineData(null)]
+        public void ISO8601WithOffsetFact(List<DateTimeOffset> toTest)
+        {
+            if (toTest[0].Ticks > 10)
+            {
+                throw new Exception("10");
+            }
+            foreach (var testDto in toTest)
+            {
+                string shouldMatch;
+                if (testDto.Offset == TimeSpan.Zero)
+                {
+                    shouldMatch = "\"" + testDto.ToString(@"yyyy-MM-ddTHH\:mm\:ss.fffffff\Z") + "\"";
+                }
+                else
+                {
+                    shouldMatch = "\"" + testDto.ToString(@"yyyy-MM-ddTHH\:mm\:ss.fffffffzzz") + "\"";
+                }
+                var strStr = JSON.Serialize(testDto, Options.ISO8601);
+                string streamStr;
+                using (var str = new StringWriter())
+                {
+                    JSON.Serialize(testDto, str, Options.ISO8601);
+                    streamStr = str.ToString();
+                }
+
+                Assert.Equal(shouldMatch, strStr);
+                Assert.Equal(shouldMatch, streamStr);
+            }
+        }
+
+        [Theory]
+        [InlineData(1)]
+        public void ISO8601WithOffset(long ticks)
         {
             var toTest = new List<DateTimeOffset>();
-            toTest.Add(DateTimeOffset.Now);
+            var tdo = new DateTimeOffset(ticks, new TimeSpan(0, 0, 0, 0));
+            toTest.Add(tdo);
+            //toTest.Add(DateTimeOffset.Now);
+
+            if (ticks == 0)
+            {
+                PexAssert.IsTrue(toTest != null);
+            }
 
             for (var h = 0; h <= 14; h++)
             {

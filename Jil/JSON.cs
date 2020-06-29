@@ -4593,6 +4593,16 @@ switch (options.UseDateTimeFormat)
             return writer.StaticToString();
         }
 
+        public static int TestEven(int i)
+        {
+            if (i % 2 == 0)
+            {
+                throw new Exception("even");
+            }
+            return 10;
+        }
+
+
         /// <summary>
         /// Deserializes JSON from the given TextReader as the passed type.
         /// 

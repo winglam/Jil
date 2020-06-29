@@ -1,17 +1,24 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net452;netcoreapp1.0;netcoreapp2.0</TargetFrameworks>
+    <TargetFrameworks>net452</TargetFrameworks>
     <xUnitVersion>2.4.0-beta.1.build3958</xUnitVersion>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\Jil\Jil.csproj" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.3.0" />
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
-    <PackageReference Include="xunit" Version="$(xUnitVersion)" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="$(xUnitVersion)" />
+    <PackageReference Include="xunit" Version="2.4.1" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.2">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <DotNetCliToolReference Include="dotnet-xunit" Version="$(xUnitVersion)" />
 
     <Reference Include="Microsoft.CSharp" />
+
+    <Reference Include="Microsoft.Pex.Framework">
+      <HintPath>..\..\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Common7\IDE\ReferenceAssemblies\v4.5\Microsoft.Pex.Framework.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup Condition="$(TargetFramework) == 'net45'">
     <ProjectReference Include="..\Benchmark\Benchmark.csproj" />
