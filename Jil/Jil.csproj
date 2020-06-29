@@ -2,7 +2,7 @@
   <PropertyGroup>
     <AssemblyName>Jil</AssemblyName>
     <Version>2.16.0</Version>
-    <TargetFrameworks>net45</TargetFrameworks>
+    <TargetFramework>net452</TargetFramework>
     <OutputType>Library</OutputType>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
@@ -14,6 +14,9 @@
     <Copyright>Copyright © Kevin Montrose 2013 - 2018</Copyright>
     <PackageReleaseNotes>Updates to target netstandard2.0 and fix core lib mismatches.</PackageReleaseNotes>
     <PackageId>Jil</PackageId>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Sigil" Version="4.7.0" />
@@ -53,5 +56,8 @@
     <Compile Update="Deserialize\Methods.*.cs" DependentUpon="Methods.cs" />
     <Compile Update="Serialize\Methods.*.cs" DependentUpon="Methods.cs" />
     <None Include="OptionsGeneration.linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
 </Project>

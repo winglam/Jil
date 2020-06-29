@@ -4592,7 +4592,9 @@ switch (options.UseDateTimeFormat)
             GetThunkerDelegate<T>(options)(ref writer, data, 0);
             return writer.StaticToString();
         }
-
+        /// <summary>
+        /// Test if number is even
+        /// </summary>
         public static int TestEven(int i)
         {
             if (i % 2 == 0)

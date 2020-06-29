@@ -1,7 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net452</TargetFrameworks>
+    <TargetFramework>net452</TargetFramework>
     <xUnitVersion>2.4.0-beta.1.build3958</xUnitVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\Jil\Jil.csproj" />
@@ -13,12 +16,6 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <DotNetCliToolReference Include="dotnet-xunit" Version="$(xUnitVersion)" />
-
-    <Reference Include="Microsoft.CSharp" />
-
-    <Reference Include="Microsoft.Pex.Framework">
-      <HintPath>..\..\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Common7\IDE\ReferenceAssemblies\v4.5\Microsoft.Pex.Framework.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup Condition="$(TargetFramework) == 'net45'">
     <ProjectReference Include="..\Benchmark\Benchmark.csproj" />
@@ -26,5 +23,8 @@
     <Reference Include="System" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
 </Project>

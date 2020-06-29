@@ -23,32 +23,58 @@ namespace ClassLibrary1.Tests
         //    return dates;
         //}
 
-        [PexFactoryMethod(typeof(List<DateTimeOffset>))]
-        public static List<DateTimeOffset> Create(long[] ticks)
+        /*[PexFactoryMethod(typeof(List<DateTimeOffset>))]
+        //public static List<DateTimeOffset> Create([PexAssumeNotNull]long[] ticks, int h, int m)
+        public static List<DateTimeOffset> Create([PexAssumeNotNull]long[] ticks)
         {
-            PexAssume.IsNotNull(ticks);
-            PexAssume.IsTrue(ticks.Length > 2 || ticks.Length <= 2);
+            PexAssumeEx.TrueForAll(ticks, t => DateTime.MinValue.Ticks <= t && DateTime.MaxValue.Ticks >= t);
+
+            //PexAssume.IsTrue(ticks.Length > 2 || ticks.Length <= 2);
             var dates = new List<DateTimeOffset>();
             foreach (var i in ticks)
             {
+                //dates.Add(new DateTimeOffset(i, new TimeSpan(h,m,0)));
                 dates.Add(new DateTimeOffset(i, new TimeSpan(0)));
+            }
+            return dates;
+        }*/
+
+        [PexFactoryMethod(typeof(List<DateTimeOffset>))]
+        //public static List<DateTimeOffset> Create([PexAssumeNotNull]long[] ticks, int h, int m)
+        public static List<DateTimeOffset> CreateUserDefined(long tick)
+        {
+            PexAssume.IsTrue(DateTime.MinValue.Ticks <= tick && DateTime.MaxValue.Ticks >= tick);
+            var tdo = new DateTimeOffset(tick, new TimeSpan(0, 0, 0, 0));
+            
+            //PexAssume.IsTrue(ticks.Length > 2 || ticks.Length <= 2);
+            var dates = new List<DateTimeOffset>();
+            dates.Add(tdo);
+            for (var h = 0; h <= 14; h++)
+            {
+                for (var m = 0; m < 60; m++)
+                {
+                    if (h == 0 && m == 0) continue;
+                    if (h == 14 && m > 0) continue;
+
+                    var offsetPos = new TimeSpan(h, m, 0);
+                    var offsetNeg = offsetPos.Negate();
+
+                    var now = new DateTime(636639847357871686);
+                    now = DateTime.SpecifyKind(now, DateTimeKind.Unspecified);
+
+                    dates.Add(new DateTimeOffset(now, offsetPos));
+                    dates.Add(new DateTimeOffset(now, offsetNeg));
+                }
             }
             return dates;
         }
 
-        //[PexFactoryMethod(typeof(DateTimeOffset[]))]
-        //public static DateTimeOffset[] Create(long[] ticks)
-        //{
-        //    PexAssume.IsNotNull(ticks);
-        //    //PexAssume.IsTrue(ticks.Length > 0);
-        //    PexAssume.IsTrue(ticks.Length > 2 || ticks.Length <= 2);
-        //    var dates = new DateTimeOffset[ticks.Length];
-        //    for (int i = 0; i < ticks.Length; i++)
-        //    {
-        //        dates[i] = new DateTimeOffset(ticks[i], new TimeSpan(0));
-        //    }
-        //    return dates;
-        //}
+
+
+        
+
+
+
 
         //[PexFactoryMethod(typeof(DateTimeOffset))]
         //public static DateTimeOffset Create(long ticks)
@@ -70,5 +96,14 @@ namespace ClassLibrary1.Tests
         //    }
         //    return dates;
         //}
+
+        /*[PexFactoryMethod(typeof(DateTimeOffset))]
+        public static DateTimeOffset CreateSingle(long ticks)
+        {
+
+            var date = new DateTimeOffset(ticks, new TimeSpan(0));
+
+            return date;
+        }*/
     }
 }

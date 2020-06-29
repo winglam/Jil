@@ -12,11 +12,10 @@ using System.Threading.Tasks;
 using System.Xml;
 using System.Collections;
 using Xunit;
-using Microsoft.Pex.Framework;
 
 namespace JilTests
 {
-    [PexClass]
+
     public class SerializeTests
     {
 #if !DEBUG
@@ -7639,7 +7638,6 @@ namespace JilTests
 
             foreach (var ts in timeSpans)
             {
-                PexAssert.IsTrue(timeSpans.Count > 10);
                 string streamJson, stringJson;
                 using (var str = new StringWriter())
                 {
@@ -7651,7 +7649,6 @@ namespace JilTests
                     stringJson = JSON.Serialize(ts, Options.ISO8601);
                 }
 
-                PexAssert.IsTrue(streamJson == stringJson);
 
                 var dotNetStr = XmlConvert.ToString(ts);
 
@@ -8197,6 +8194,7 @@ namespace JilTests
                 Assert.Equal(shouldMatch, streamStr);
             }
         }
+       
 
         [Theory]
         [InlineData(1)]
@@ -8209,7 +8207,6 @@ namespace JilTests
 
             if (ticks == 0)
             {
-                PexAssert.IsTrue(toTest != null);
             }
 
             for (var h = 0; h <= 14; h++)
