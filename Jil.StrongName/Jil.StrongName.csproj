@@ -2,7 +2,7 @@
   <PropertyGroup>
     <AssemblyName>Jil</AssemblyName>
     <Version>2.16.0</Version>
-    <TargetFrameworks>net45;netstandard1.6;netstandard2.0</TargetFrameworks>
+    <TargetFramework>net452</TargetFramework>
     <OutputType>Library</OutputType>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
@@ -49,14 +49,17 @@
   </ItemGroup>
   <!-- StrongName bits -->
   <PropertyGroup>
-    <SignAssembly>true</SignAssembly>
+    <SignAssembly>false</SignAssembly>
     <AssemblyOriginatorKeyFile>Properties\Jil.StrongName.snk</AssemblyOriginatorKeyFile>
-    <DefineConstants>$(DefineConstants);STRONG_NAME</DefineConstants>
+    <DefineConstants>DEBUG;TRACE;STRONG_NAME</DefineConstants>
     <PackageReleaseNotes>Updates to target netstandard2.0 and fix core lib mismatches.</PackageReleaseNotes>
     <PackageId>Jil.StrongName</PackageId>
   </PropertyGroup>
   <ItemGroup>
     <None Include="Properties\Jil.StrongName.snk" />
     <Compile Include="..\Jil\**\*.cs" Exclude="..\Jil\bin\**;..\Jil\obj\**" Link="%(RecursiveDir)%(Filename)%(Extension)" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
 </Project>
