@@ -3,6 +3,7 @@ using JilTests.Hashbrowns.Shared.Enums;
 
 namespace JilTests
 {
+    using FakesStuff;
     using System;
     using Xunit;
 
@@ -20,7 +21,7 @@ namespace JilTests
         }
     }
 
-    public class EnumFlagsTest
+    public class EnumFlagsTest : IClassFixture<DateTimeFixture>
     {
         [Fact]
         public void TestEnumFlagsSerialize()

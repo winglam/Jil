@@ -6,10 +6,11 @@ using System.Linq;
 using System.Collections.Generic;
 using Jil.Deserialize;
 using Xunit;
+using FakesStuff;
 
 namespace JilTests
 {
-    public class UtilsTests
+    public class UtilsTests : IClassFixture<DateTimeFixture>
     {
 #pragma warning disable 0649
         class _FieldOffsetsInMemory

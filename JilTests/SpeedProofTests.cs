@@ -3,6 +3,7 @@ using Jil;
 using Jil.Deserialize;
 using Jil.Serialize;
 #endif
+using FakesStuff;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -12,7 +13,7 @@ using Xunit;
 
 namespace JilTests
 {
-    public class SpeedProofTests
+    public class SpeedProofTests : IClassFixture<DateTimeFixture>
     {
         private static uint _RandUInt(Random rand)
         {

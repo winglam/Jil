@@ -8,10 +8,11 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Globalization;
 using Xunit;
+using FakesStuff;
 
 namespace JilTests
 {
-    public class DeserializeDynamicTests
+    public class DeserializeDynamicTests : IClassFixture<DateTimeFixture>
     {
         [Fact]
         public void Bool()

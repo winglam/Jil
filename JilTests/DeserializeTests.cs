@@ -1,4 +1,5 @@
-﻿using Jil;
+﻿using FakesStuff;
+using Jil;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -32,7 +33,7 @@ namespace JilTests
         int C { get; set; }
     }
 
-    public class DeserializeTests
+    public class DeserializeTests : IClassFixture<DateTimeFixture>
     {
 #pragma warning disable 0649
         struct _ValueTypes

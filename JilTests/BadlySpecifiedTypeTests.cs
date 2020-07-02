@@ -1,9 +1,10 @@
-﻿using System.IO;
+﻿using FakesStuff;
+using System.IO;
 using Xunit;
 
 namespace JilTests
 {
-    public class BadlySpecifiedTypeTests
+    public class BadlySpecifiedTypeTests : IClassFixture<DateTimeFixture>
     {
         [Fact]
         public void SerializeString()

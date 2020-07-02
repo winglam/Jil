@@ -1,12 +1,13 @@
 ﻿using System;
 using System.IO;
 using System.Text;
+using FakesStuff;
 using Jil;
 using Xunit;
 
 namespace JilTests
 {
-    public class DeepObjectGraphTests
+    public class DeepObjectGraphTests : IClassFixture<DateTimeFixture>
     {
         [Fact]
         public void DeepObjectGraphShouldNotBeEmpty()

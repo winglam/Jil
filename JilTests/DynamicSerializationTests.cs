@@ -8,10 +8,11 @@ using System.Linq;
 using System.Text;
 using System.Globalization;
 using Xunit;
+using FakesStuff;
 
 namespace JilTests
 {
-    public class DynamicSerializationTests
+    public class DynamicSerializationTests : IClassFixture<DateTimeFixture>
     {
         [Fact]
         public void ToStringJSON()
