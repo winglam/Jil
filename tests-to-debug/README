@@ -1,0 +1,21 @@
+[JilTests.DynamicSerializationTests.JilTests.DynamicSerializationTests.ISO8601TimeSpans, 20181111T1039141497Z-testresults.trx]
+     Num pass: 197
+     Num failed: 5
+     Num not runnable: 0
+     Num not executed: 0
+     Other: 0
+     Total: 202
+[JilTests.SerializeTests.JilTests.SerializeTests.ISO8601TimeSpans, 20181111T1039559070Z-testresults.trx]
+     Num pass: 199
+     Num failed: 3
+     Num not runnable: 0
+     Num not executed: 0
+     Other: 0
+     Total: 202
+[JilTests.SerializeTests.JilTests.SerializeTests.ISO8601WithOffset, 20181113T0706478932Z-testresults.trx]
+     Num pass: 200
+     Num failed: 2
+     Num not runnable: 0
+     Num not executed: 0
+     Other: 0
+     Total: 202
