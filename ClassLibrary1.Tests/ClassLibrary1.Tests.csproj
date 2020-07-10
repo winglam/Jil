@@ -94,23 +94,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1Test.cs" />
-    <Compile Include="Class1Test.ISO8601TimeSpans.g.cs">
-      <DependentUpon>Class1Test.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Class1Test.test2.g.cs">
-      <DependentUpon>Class1Test.cs</DependentUpon>
-    </Compile>
     <Compile Include="Class1Test.TestDateTime.g.cs">
       <DependentUpon>Class1Test.cs</DependentUpon>
     </Compile>
-    <Compile Include="Class1Test.TestTicks.g.cs">
-      <DependentUpon>Class1Test.cs</DependentUpon>
-    </Compile>
-    <Compile Include="DateTimeOffsetFactory.cs" />
     <Compile Include="Factories\ArrayDateTimeOffsetFactory.cs" />
     <Compile Include="ListFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\PexAssemblyInfo.cs" />
+    <Compile Include="TimeSpan.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\JilTests\JilTests.csproj">

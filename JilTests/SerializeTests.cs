@@ -8195,7 +8195,58 @@ namespace JilTests
         //        Assert.Equal(shouldMatch, streamStr);
         //    }
         //}
-       
+
+
+        [Theory]
+        [InlineData(1L)]
+        public void ISO8601WithOffsetPUT(long ticks)
+        {
+            var toTest = new List<DateTimeOffset>();
+            //var tdo = new DateTimeOffset(ticks, new TimeSpan(0, 0, 0, 0));
+            //toTest.Add(tdo);
+            toTest.Add(new DateTimeOffset(ticks, new TimeSpan(0,0,0,0)));
+
+            for (var h = 0; h <= 14; h++)
+            {
+                for (var m = 0; m < 60; m++)
+                {
+                    if (h == 0 && m == 0) continue;
+                    if (h == 14 && m > 0) continue;
+
+                    var offsetPos = new TimeSpan(h, m, 0);
+                    var offsetNeg = offsetPos.Negate();
+
+                    var now = new DateTime(636639847357871686);
+                    now = DateTime.SpecifyKind(now, DateTimeKind.Unspecified);
+
+                    toTest.Add(new DateTimeOffset(now, offsetPos));
+                    toTest.Add(new DateTimeOffset(now, offsetNeg));
+                }
+            }
+
+            foreach (var testDto in toTest)
+            {
+                string shouldMatch;
+                if (testDto.Offset == TimeSpan.Zero)
+                {
+                    shouldMatch = "\"" + testDto.ToString(@"yyyy-MM-ddTHH\:mm\:ss.fffffff\Z") + "\"";
+                }
+                else
+                {
+                    shouldMatch = "\"" + testDto.ToString(@"yyyy-MM-ddTHH\:mm\:ss.fffffffzzz") + "\"";
+                }
+                var strStr = JSON.Serialize(testDto, Options.ISO8601);
+                string streamStr;
+                using (var str = new StringWriter())
+                {
+                    JSON.Serialize(testDto, str, Options.ISO8601);
+                    streamStr = str.ToString();
+                }
+
+                Assert.Equal(shouldMatch, strStr);
+                Assert.Equal(shouldMatch, streamStr);
+            }
+        }
 
         [Fact]
         public void ISO8601WithOffset()
@@ -8245,6 +8296,32 @@ namespace JilTests
                 Assert.Equal(shouldMatch, strStr);
                 Assert.Equal(shouldMatch, streamStr);
             }
+        }
+
+        [Fact]
+        public void ISO8601WithOffsetNoLoop()
+        {
+            var testDto = DateTimeOffset.Now;
+
+            string shouldMatch;
+            if (testDto.Offset == TimeSpan.Zero)
+            {
+                shouldMatch = "\"" + testDto.ToString(@"yyyy-MM-ddTHH\:mm\:ss.fffffff\Z") + "\"";
+            }
+            else
+            {
+                shouldMatch = "\"" + testDto.ToString(@"yyyy-MM-ddTHH\:mm\:ss.fffffffzzz") + "\"";
+            }
+            var strStr = JSON.Serialize(testDto, Options.ISO8601);
+            string streamStr;
+            using (var str = new StringWriter())
+            {
+                JSON.Serialize(testDto, str, Options.ISO8601);
+                streamStr = str.ToString();
+            }
+
+            Assert.Equal(shouldMatch, strStr);
+            Assert.Equal(shouldMatch, streamStr);
         }
 
         class _DictionaryDictionary
