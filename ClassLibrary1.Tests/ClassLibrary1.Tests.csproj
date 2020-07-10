@@ -97,6 +97,9 @@
     <Compile Include="Class1Test.TestDateTime.g.cs">
       <DependentUpon>Class1Test.cs</DependentUpon>
     </Compile>
+    <Compile Include="Class1Test.TestTicks.g.cs">
+      <DependentUpon>Class1Test.cs</DependentUpon>
+    </Compile>
     <Compile Include="Factories\ArrayDateTimeOffsetFactory.cs" />
     <Compile Include="ListFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

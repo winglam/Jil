@@ -24,6 +24,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClassLibrary1.Tests", "Clas
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FakesStuff", "FakesStuff\FakesStuff.csproj", "{2D229918-583D-4C68-8E37-8DA97E1DB54C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jill.Tests-Ang", "Jill.Tests-Ang\Jill.Tests-Ang.csproj", "{027A40EF-68EE-48C3-9D81-5AAD03C7841E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -73,6 +75,12 @@ Global
 		{2D229918-583D-4C68-8E37-8DA97E1DB54C}.Release_ExhaustiveTest|Any CPU.Build.0 = Release|Any CPU
 		{2D229918-583D-4C68-8E37-8DA97E1DB54C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2D229918-583D-4C68-8E37-8DA97E1DB54C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{027A40EF-68EE-48C3-9D81-5AAD03C7841E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{027A40EF-68EE-48C3-9D81-5AAD03C7841E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{027A40EF-68EE-48C3-9D81-5AAD03C7841E}.Release_ExhaustiveTest|Any CPU.ActiveCfg = Release|Any CPU
+		{027A40EF-68EE-48C3-9D81-5AAD03C7841E}.Release_ExhaustiveTest|Any CPU.Build.0 = Release|Any CPU
+		{027A40EF-68EE-48C3-9D81-5AAD03C7841E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{027A40EF-68EE-48C3-9D81-5AAD03C7841E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
